@@ -1,0 +1,25 @@
+{
+  "name": "gle",
+  "displayName": "GLE",
+  "description": "GLE (Graphics Layout Engine) Language Support",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.97.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [{
+      "id": "gle",
+      "aliases": ["GLE", "gle"],
+      "extensions": [".gle"],
+      "configuration": "./language-configuration.json"
+    }],
+    "grammars": [{
+      "language": "gle",
+      "scopeName": "source.gle",
+      "path": "./syntaxes/gle.tmLanguage.json"
+    }]
+  }
+}

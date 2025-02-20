@@ -1,0 +1,274 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "GLE",
+	"patterns": [
+		{
+			"include": "#keywords"
+		},
+		{
+			"include": "#strings"
+		},
+		{
+			"include": "#support"
+		},
+		{
+			"include": "#line_comments"
+		},
+		{
+			"name": "meta.body.subroutine.gle",
+			"begin": "^(sub)\\s+(?=[A-Za-z_][A-Za-z0-9_]*)",
+			"captures": {
+				"0": {
+					"name": "storage.type.function.gle"
+				}
+			},
+			"end": "(?<=^end)(\\s+sub)",
+			"patterns": [
+				{
+					"begin": "(?<=sub\\s+)([A-Za-z_][A-Za-z0-9_]*)",
+					"beginCaptures": {
+						"0": {
+							"name": "entity.name.function.gle"
+						}
+					},
+					"end": "(?=\\n|!)",
+					"patterns": [
+						{
+							"name": "variable.parameter.gle",
+							"match": "(\\s+[A-Za-z_][A-Za-z0-9_]*)"
+						}
+					]
+				},
+				{
+					"begin": "^\\s*(local)\\b",
+					"beginCaptures": {
+						"0": {
+							"name": "keyword.command.gle"
+						}
+					},
+					"end": "(?=\\n|!)",
+					"patterns": [
+						{
+							"name": "variable.parameter.gle",
+							"match": "(?<=\\blocal\\b\\s|,\\s*)([A-Za-z_][A-Za-z0-9_]*)"
+						}
+					]
+				},
+				{
+					"include": "$self"
+				}
+			]
+		},
+		{
+			"name": "meta.body.block.graph.gle",
+			"begin": "(?<=^begin)\\s+(graph)\\b",
+			"captures": {
+				"0": {
+					"name": "storage.type.gle"
+				}
+			},
+			"end": "(?<=^end)(\\s+\\1)\\b",
+			"patterns": [
+				{
+					"name": "entity.name.dataset.gle",
+					"match": "\\b(d\\d+)\\b"
+				},
+				{
+					"name": "keyword.command.graph.gle",
+					"match": "^\\s*\\b(bar|center|colormap|data|discontinuity|fill|fullsize|key|let|math|nobox|(h|v)?scale|size|title|(x|y)2?(axis|labels|names|(no|sub)?ticks|places|side|title))\\b"
+				},
+				{
+					"match": "\\b(color|comment|a?dist|h?err(down|up|width)?|fill|font|format|hei|ignore|key|line|log|lstyle|lwidth|marker|(x|y)?max|(x|y)?min|msize|negate|nobox|palette|pattern|pos|(f|d|dsub|n)ticks|threshold)\\b",
+					"name": "support.other.parameter.graph.gle"
+				},
+				{
+					"include": "$self"
+				}
+			]
+		},
+		{
+			"name": "meta.body.block.key.gle",
+			"begin": "(?<=^begin)\\s+(key)\\b",
+			"captures": {
+				"0": {
+					"name": "storage.type.gle"
+				}
+			},
+			"end": "(?<=^end)(\\s+\\1)\\b",
+			"patterns": [
+				{
+					"name": "keyword.command.key.gle",
+					"match": "^\\s*\\b(absolute|base|boxcolor|coldist|compact|dist|hei|justify|llen|lpos|margins|nobox|offset|position|row)\\b"
+				},
+				{
+					"name": "keyword.control.key.gle",
+					"match": "^\\s*\\b(off)\\b"
+				},
+				{
+					"match": "\\b(color|fill|line|lstyle|lwidth|marker|msize|pattern|separator|text(color)?)\\b",
+					"name": "support.other.parameter.key.gle"
+				},
+				{
+					"include": "$self"
+				}
+			]
+		},
+		{
+			"name": "meta.body.block.text.gle",
+			"begin": "(^begin)\\s+(table|tex|text)\\b",
+			"captures": {
+				"1": {
+					"name": "storage.modifier.gle"
+				},
+				"2": {
+					"name": "storage.type.gle"
+				}
+			},
+			"end": "(^end)\\s+(\\2)\\b",
+			"contentName": "string.unquoted.gle"
+		},
+		{
+			"name": "meta.body.block.other.gle",
+			"begin": "(?<=^begin)\\s+(box|clip|length|name|object|origin|path|rotate|scale|texpreamble|translate)\\b",
+			"captures": {
+				"0": {
+					"name": "storage.type.gle"
+				}
+			},
+			"end": "(?<=^end)(\\s+\\1)\\b",
+			"patterns": [
+				{
+					"include": "$self"
+				}
+			]
+		},
+		{
+			"match": "([a-zA-Z_]+[a-zA-Z0-9_]*)(?=\\s*=\\s*[0-9a-z\\-+])",
+			"name": "variable.name.gle"
+		},
+		{
+			"match": "(?<=\\bnext)\\s+([a-zA-Z_]+[a-zA-Z0-9_]*)",
+			"name": "variable.name.gle"
+		},
+		{
+			"name": "constant.numeric.gle",
+			"match": "(-?(\\b\\d+\\b(\\.\\d*)?|\\.\\d+\\b))"
+		},
+		{
+			"name": "constant.language.gle",
+			"match": "\\b(true|false)\\b"
+		},
+		{
+			"name": "storage.modifier.gle",
+			"match": "\\b(set|begin|end)\\b"
+		}
+	],
+	"repository": {
+		"keywords": {
+			"patterns": [
+				{
+					"name": "keyword.control.gle",
+					"match": "\\b(if|then|else|end if|for|to|step|next|from|where|return)\\b"
+				},
+				{
+					"name": "keyword.control.directive.gle",
+					"match": "\\b(include)\\b"
+				},
+				{
+					"name": "keyword.operator.subroutine.gle",
+					"match": "@(?=.+)"
+				},
+				{
+					"name": "keyword.operator.arithmetic.gle",
+					"match": "(\\+|\\-|\\*|/|\\^)"
+				},
+				{
+					"match": "(<=|>=|>|<|<>)",
+					"name": "keyword.operator.relation.gle"
+				},
+				{
+					"match": "\\b(and|or)\\b",
+					"name": "keyword.operator.boolean.gle"
+				},
+				{
+					"match": "=",
+					"name": "keyword.operator.assignment.gle"
+				},
+				{
+					"name": "keyword.command.gle",
+					"match": "^\\s*\\b(abound|arc|(a|r)(move|line)|box|circle|closepath|draw|ellipse|gsave|grestore|join|save|size|tex|text)\\b"
+				}
+			]
+		},
+		"strings": {
+			"patterns": [
+				{
+					"name": "string.quoted.double.gle",
+					"begin": "\"",
+					"end": "\"",
+					"patterns": [
+						{
+							"name": "constant.character.escape.gle",
+							"match": "\\\\."
+						}
+					]
+				},
+				{
+					"name": "string.unquoted.gle",
+					"match": "(?<=^text\\b)(\\s+.+)"
+				}
+			]
+		},
+		"support": {
+			"patterns": [
+				{
+					"match": "\\b(xg|yg|rgba?)\\b",
+					"name": "support.function.gle"
+				},
+				{
+					"match": "\\b(abs|atn|exp|cos|log(10)?|sin|sqr|sqrt|tan)\\b",
+					"name": "support.function.math.gle"
+				},
+				{
+					"match": "(((two|root|half)_)?pi|root_(two|three)|_e_)",
+					"name": "support.constant.math.gle"
+				},
+				{
+					"match": "\\b([x-z]2?g(min|max))\\b",
+					"name": "support.constant.other.gle"
+				},
+				{
+					"match": "\\b((w|f)?(triangle|square|circle|diamond)|cross|plus|minus|asterisk|odot|ominus|oplus|otimes|star|dag|ddag|snake|dot|club|heart)\\b",
+					"name": "support.constant.marker.gle"
+				},
+				{
+					"match": "\\b(white|black|red|yellow|blue|green|magenta|cyan|orange|purple|lime|teal|navy|maroon|gray[1-9]0)\\b",
+					"name": "support.constant.color.gle"
+				},
+				{
+					"match": "\\b(tl|bl|tr|br|tc|bc|lc|rc|cc)\\b",
+					"name": "support.constant.position.gle"
+				},
+				{
+					"match": "\\b((alabel|atitle)(dist|scale)|arrow(angle|size|style)|background|cap|color|dashlen|fill|font(lwidth)?|hei|join|just|lstyle|lwidth|pattern|(tex|title|ticks)scale|texlabels)\\b",
+					"name": "support.other.attribute.gle"
+				},
+				{
+					"match": "\\b(add|arrow|clip|curve|fill|name|nobox|round|stroke|width)\\b",
+					"name": "support.other.parameter.gle"
+				}
+			]
+		},
+		"line_comments": {
+			"begin": "!",
+			"beginCaptures": {
+				"0": {
+					"name": "punctuation.definition.comment.gle"
+				}
+			},
+			"end": "\\n",
+			"name": "comment.line.character.gle"
+		}
+	},
+	"scopeName": "source.gle"
+}
