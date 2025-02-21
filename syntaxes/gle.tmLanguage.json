@@ -115,7 +115,7 @@
 		},
 		{
 			"name": "meta.body.block.text.gle",
-			"begin": "(?<=^begin)\\s+(table|tex|text)\\b",
+			"begin": "(^begin)\\s+(table|tex|text)\\b",
 			"captures": {
 				"1": {
 					"name": "storage.modifier.gle"
@@ -177,7 +177,7 @@
 		},
 		{
 			"name": "storage.modifier.gle",
-			"match": "\\b(set|begin|end)\\b"
+			"match": "^\\s*\\b(set|begin|end|gsave|grestore)\\b"
 		}
 	],
 	"repository": {
@@ -213,7 +213,7 @@
 				},
 				{
 					"name": "keyword.command.gle",
-					"match": "^\\s*\\b(abound|arc|(a|r)(move|line)|box|circle|closepath|draw|ellipse|gsave|grestore|join|save|size|tex|text)\\b"
+					"match": "^\\s*\\b(abound|arc|(a|r)(move|line)|box|circle|closepath|draw|ellipse|join|save|size|tex|text)\\b"
 				}
 			]
 		},
