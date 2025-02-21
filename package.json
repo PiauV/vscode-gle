@@ -2,7 +2,7 @@
   "name": "gle",
   "displayName": "GLE",
   "description": "GLE (Graphics Layout Engine) Language Support",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "engines": {
     "vscode": "^1.97.0"
   },
@@ -20,7 +20,11 @@
         "extensions": [
           ".gle"
         ],
-        "configuration": "./gle-language-configuration.json"
+        "configuration": "./gle-language-configuration.json",
+        "icon": {
+          "light": "./icons/gle-light.png",
+          "dark": "./icons/gle-dark.png"
+        }
       },
       {
         "id": "latex_embedded_gle",
