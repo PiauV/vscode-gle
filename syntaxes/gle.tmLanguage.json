@@ -115,7 +115,7 @@
 		},
 		{
 			"name": "meta.body.block.text.gle",
-			"begin": "(^begin)\\s+(table|tex|text)\\b",
+			"begin": "(?<=^begin)\\s+(table|tex|text)\\b",
 			"captures": {
 				"1": {
 					"name": "storage.modifier.gle"
@@ -128,8 +128,25 @@
 			"contentName": "string.unquoted.gle"
 		},
 		{
+			"name": "meta.body.block.texpreamble.gle",
+			"begin": "(^begin)\\s+(texpreamble)\\b",
+			"captures": {
+				"1": {
+					"name": "storage.modifier.gle"
+				},
+				"2": {
+					"name": "storage.type.gle"
+				}
+			},
+			"end": "(^end)\\s+(\\2)\\b",
+			"contentName": "meta.latex.embedded.gle",
+			"patterns": [{
+				"include": "source.preamble.latex"
+			}]
+		},
+		{
 			"name": "meta.body.block.other.gle",
-			"begin": "(?<=^begin)\\s+(box|clip|length|name|object|origin|path|rotate|scale|texpreamble|translate)\\b",
+			"begin": "(?<=^begin)\\s+(box|clip|length|name|object|origin|path|rotate|scale|translate)\\b",
 			"captures": {
 				"0": {
 					"name": "storage.type.gle"

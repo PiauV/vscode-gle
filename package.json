@@ -10,16 +10,37 @@
     "Programming Languages"
   ],
   "contributes": {
-    "languages": [{
-      "id": "gle",
-      "aliases": ["GLE", "gle"],
-      "extensions": [".gle"],
-      "configuration": "./language-configuration.json"
-    }],
-    "grammars": [{
-      "language": "gle",
-      "scopeName": "source.gle",
-      "path": "./syntaxes/gle.tmLanguage.json"
-    }]
+    "languages": [
+      {
+        "id": "gle",
+        "aliases": [
+          "GLE",
+          "gle"
+        ],
+        "extensions": [
+          ".gle"
+        ],
+        "configuration": "./gle-language-configuration.json"
+      },
+      {
+        "id": "latex_embedded_gle",
+        "configuration": "./latex-language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "gle",
+        "scopeName": "source.gle",
+        "path": "./syntaxes/gle.tmLanguage.json",
+        "embeddedLanguages": {
+          "meta.latex.embedded.gle": "latex_embedded_gle"
+        }
+      },
+      {
+        "language": "latex_embedded_gle",
+        "scopeName": "source.preamble.latex",
+        "path": "./syntaxes/latex_preamble.tmLanguage.json"
+      }
+    ]
   }
 }

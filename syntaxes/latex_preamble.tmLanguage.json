@@ -1,0 +1,30 @@
+{
+    "name": "LaTeX",
+    "patterns": [
+        {
+            "comment": "Very simple syntax highlighting for LaTeX preamble in GLE. In most cases it will only consist of calls to documentclass and usepackage.",
+            "include": "#preamble"
+        }
+    ],
+    "repository": {
+        "preamble": {
+            "patterns": [
+                {
+                    "name": "keyword.control.preamble.latex",
+                    "match": "^\\s*\\\\(documentclass|usepackage)\\b"
+                },
+                {
+                    "begin": "%",
+                    "beginCaptures": {
+                        "0": {
+                            "name": "punctuation.definition.comment.latex"
+                        }
+                    },
+                    "end": "\\n",
+                    "name": "comment.line.character.latex"
+                }
+            ]
+        }
+    },
+    "scopeName": "source.preamble.latex"
+}
