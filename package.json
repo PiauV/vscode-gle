@@ -2,12 +2,13 @@
   "name": "gle",
   "displayName": "GLE",
   "description": "GLE (Graphics Layout Engine) Language Support",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "engines": {
     "vscode": "^1.97.0"
   },
   "categories": [
-    "Programming Languages"
+    "Programming Languages",
+    "Snippets"
   ],
   "contributes": {
     "languages": [
@@ -44,6 +45,12 @@
         "language": "latex_embedded_gle",
         "scopeName": "source.preamble.latex",
         "path": "./syntaxes/latex_preamble.tmLanguage.json"
+      }
+    ],
+    "snippets": [
+      {
+        "language": "gle",
+        "path": "./snippets.json"
       }
     ]
   }

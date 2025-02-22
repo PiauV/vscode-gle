@@ -1,0 +1,98 @@
+{
+    "for loop": {
+        "prefix": "for",
+        "body": [
+            "for ${1:var} = ${2:start} to ${3:end} step ${4:s}",
+            "\t$0",
+            "next $1"
+        ],
+        "description": "for ... next structure"
+    },
+    "if statement": {
+        "prefix": "if",
+        "body": [
+            "if $1 then",
+            "\t$2",
+            "else",
+            "\t$3",
+            "end if"
+        ],
+        "description": "if ... else structure"
+    },
+    "set command": {
+        "prefix": "set",
+        "body": [
+            "set ${1|alabeldist,alabelscale,arrowangle,arrowsize,arrowstyle,atitledist,atitlescale,background,cap,color,dashlen,fill,font,fontlwidth,hei,join,just,lstyle,lwidth,pattern,texscale,titlescale,ticksscale,texlabels|} $0"
+        ],
+        "description": "set <param> <value> command"
+    },
+    "block": {
+        "prefix": "begin",
+        "body": [
+            "begin ${1|box,clip,graph,key,length,name,object,origin,path,rotate,scale,table,tex,texpreamble,text,translate|}",
+            "\t$0",
+            "end $1"
+        ],
+        "description": "begin ... end structure"
+    },
+    "graph block": {
+        "prefix": "begin-graph",
+        "body": [
+            "begin graph",
+            "\tscale auto",
+            "\txtitle \"x\"",
+            "\t! xaxis min 0 max 1",
+            "\tytitle \"y\"",
+            "\t! yaxis min 0 max 1",
+            "\tdata \"$0\"",
+            "\td1 line color red",
+            "end graph"
+        ],
+        "description": "create simple graph block"
+    },
+    "key block": {
+        "prefix": "begin-key",
+        "body": [
+            "begin key",
+            "\tcompact",
+            "\tposition tr",
+            "\toffset 0.2 0.2",
+            "\ttext \"${1:name}\" marker $2 lstyle $3 color $4",
+            "end key"
+        ],
+        "description": "create simple key block"
+    },
+    "texpreamble": {
+        "prefix": "begin-texpreamble",
+        "body": [
+            "begin texpreamble",
+            "\t\\documentclass[10pt]{article}",
+            "\t\\usepackage{$0}",
+            "end texpreamble"
+        ],
+        "description": "create texpreamble block"
+    },
+    "subroutine": {
+        "prefix": "sub",
+        "body": [
+            "sub ${1:name} ${2:params}",
+            "\t$0",
+            "end sub"
+        ],
+        "description": "create subroutine"
+    },
+    "dataset": {
+        "prefix": "let",
+        "body": [
+            "let d$1 = $2 from $3 to $4"
+        ],
+        "description": "define new dataset with let"
+    },
+    "inline key": {
+        "prefix": "key",
+        "body": [
+            "key compact pos ${1:tr} offset ${2:0} ${3:0}"
+        ],
+        "description": "define key in a graph block"
+    }
+}
