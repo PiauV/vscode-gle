@@ -239,7 +239,7 @@
 		"support": {
 			"patterns": [
 				{
-					"match": "\\b(xg|yg|rgba?)\\b",
+					"match": "\\b(xg|yg|rgba?(255)?)\\b",
 					"name": "support.function.gle"
 				},
 				{
