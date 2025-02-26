@@ -55,21 +55,38 @@
         "path": "./snippets.json"
       }
     ],
+    "configuration":[
+      {
+        "title": "GLE",
+        "properties": {
+          "gle.activateQGLE":{
+            "type": "boolean",
+            "default": true,
+            "description": "Enables call to QGLE previewer."
+          },
+          "gle.pathToQGLE":{
+            "type": ["string", "null"],
+            "default": null,
+            "description": "Specifies the path to QGLE previewer."
+          }
+        }
+      }
+    ],
     "commands": [
       {
         "command": "extension.launchQGLE",
         "title": "Preview script in QGLE",
-        "when": "resourceLangId == gle",
+        "when": "resourceLangId == gle && config.gle.activateQGLE",
         "category": "GLE"
       }
     ],
     "menus": {
       "editor/context": [{
-          "when": "resourceLangId == gle",
+          "when": "resourceLangId == gle && config.gle.activateQGLE",
           "command": "extension.launchQGLE"
         }],
       "explorer/context": [{
-        "when": "resourceExtname == .gle",
+        "when": "resourceExtname == .gle && config.gle.activateQGLE",
         "command": "extension.launchQGLE",
         "group": "navigation@30"
       }]

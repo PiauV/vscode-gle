@@ -1,23 +1,18 @@
 import * as vscode from 'vscode';
 
-export function launchQGLE() {
-    const textEditor = vscode.window.activeTextEditor;
-    if (textEditor) {
-        const docUri = textEditor.document.uri;
-        const filename = docUri.fsPath;
-        if (filename.endsWith(".gle")) {
-            vscode.window.createTerminal({
-                name: "QGLE",
-                shellPath: "qgle",
-                shellArgs: filename,
-                hideFromUser: true
-            });
-        }
-        else {
-            vscode.window.showErrorMessage("This is not a GLE script");
-        }
+export function launchQGLE(uri: vscode.Uri) {
+    const full_path = vscode.workspace.getConfiguration('gle').get<string>("pathToQGLE");
+    const command = full_path ? full_path : "qgle";
+    const filename = uri.fsPath;
+    if (filename.endsWith(".gle")) {
+        vscode.window.createTerminal({
+            name: "QGLE",
+            shellPath: command,
+            shellArgs: filename,
+            hideFromUser: true
+        });
     }
     else {
-        vscode.window.showErrorMessage("No editor is open");
+        vscode.window.showErrorMessage("This is not a GLE script");
     }
 }
