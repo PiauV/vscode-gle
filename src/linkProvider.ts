@@ -16,14 +16,14 @@ export class LinkToFilesProvider implements vscode.DocumentLinkProvider {
 		let output: vscode.DocumentLink[] = []; // initialize list of file links
 		let diagnostics: vscode.Diagnostic[] = []; // initialize list of errors
 
-		const pattern = "(?<=^\\s*(data|include|colormap)\\s+\")(\\w+\.[a-zA-Z0-9]+)(?=\")";
+		const pattern = "^\\s*(include|data|colormap)\\s+\"(\\w+\.[a-zA-Z0-9]+)(?=\")";
 		const doc_uri = document.uri; // path of the GLE script
 		for (let lineIndex = 0; lineIndex < document.lineCount; lineIndex++) { // parse the whole document
 			const line = document.lineAt(lineIndex);
 			// find name of external files : include/data/colormap "filename"
 			const found = line.text.match(pattern);
 			if (found != null) {
-				const filename = found[0];
+				const filename = found[2];
 				// console.log(filename);
 				const range = new vscode.Range(
 					new vscode.Position(lineIndex, line.text.indexOf(filename)),
@@ -36,7 +36,26 @@ export class LinkToFilesProvider implements vscode.DocumentLinkProvider {
 					output.push(new vscode.DocumentLink(range, file)); // found file
 				} catch {
 					// file not found
-					diagnostics.push(new vscode.Diagnostic(range, `File ${filename} not found`, vscode.DiagnosticSeverity.Error));
+					try {
+						if (found[1] == "include") {
+							const include_path = vscode.workspace.getConfiguration('gle').get<string>("includePath");
+							// console.log(include_path);
+							if (include_path) {
+								const file2 = vscode.Uri.joinPath(vscode.Uri.file(include_path), filename); // path
+								await vscode.workspace.fs.stat(file2);
+								output.push(new vscode.DocumentLink(range, file2)); // found file
+							}
+							else {
+								diagnostics.push(new vscode.Diagnostic(range, `File ${filename} not found - try to set the include path (gleinc) in settings.json`, vscode.DiagnosticSeverity.Warning));
+							}
+						}
+						else {
+							throw "not found";
+						}
+					}
+					catch {
+						diagnostics.push(new vscode.Diagnostic(range, `File ${filename} not found`, vscode.DiagnosticSeverity.Error));
+					}
 				}
 			}
 		}

@@ -2,7 +2,7 @@
   "name": "gle",
   "displayName": "GLE",
   "description": "GLE (Graphics Layout Engine) Language Support",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "engines": {
     "vscode": "^1.97.0"
   },
@@ -59,12 +59,17 @@
       {
         "title": "GLE",
         "properties": {
-          "gle.activateQGLE":{
+          "gle.includePath": {
+            "type": ["string", "null"],
+            "default": null,
+            "description": "Specifies the absolute include path for GLE scripts (gleinc)."
+          },
+          "gle.activateQGLE": {
             "type": "boolean",
             "default": true,
             "description": "Enables call to QGLE previewer."
           },
-          "gle.pathToQGLE":{
+          "gle.pathToQGLE": {
             "type": ["string", "null"],
             "default": null,
             "description": "Specifies the path to QGLE previewer."
