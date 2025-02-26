@@ -2,7 +2,7 @@
   "name": "gle",
   "displayName": "GLE",
   "description": "GLE (Graphics Layout Engine) Language Support",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "engines": {
     "vscode": "^1.97.0"
   },
@@ -54,7 +54,26 @@
         "language": "gle",
         "path": "./snippets.json"
       }
-    ]
+    ],
+    "commands": [
+      {
+        "command": "extension.launchQGLE",
+        "title": "Preview script in QGLE",
+        "when": "resourceLangId == gle",
+        "category": "GLE"
+      }
+    ],
+    "menus": {
+      "editor/context": [{
+          "when": "resourceLangId == gle",
+          "command": "extension.launchQGLE"
+        }],
+      "explorer/context": [{
+        "when": "resourceExtname == .gle",
+        "command": "extension.launchQGLE",
+        "group": "navigation@30"
+      }]
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
