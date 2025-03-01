@@ -225,8 +225,10 @@
 					"end": "\"",
 					"patterns": [
 						{
-							"name": "constant.character.escape.gle",
-							"match": "\\\\."
+							"name": "entity.other.latex.math.gle",
+							"begin": "\\$",
+							"end": "\\$",
+							"captures": {"0" : {"name": "constant.character.escape.gle"}}
 						}
 					]
 				},
