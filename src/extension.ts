@@ -1,9 +1,11 @@
 import * as vscode from 'vscode';
 import { LinkToFilesProvider } from './linkProvider';
 import { GLEColorProvider } from './colorProvider';
-import { launchQGLE } from './utils';
+import { GLElauncher } from './launcher'
 
 export function activate(context: vscode.ExtensionContext) {
+	let launcher = new GLElauncher();
+
 	context.subscriptions.push(
 		vscode.languages.registerDocumentLinkProvider('gle', new LinkToFilesProvider())
 	);
@@ -13,7 +15,7 @@ export function activate(context: vscode.ExtensionContext) {
 	);
 
 	context.subscriptions.push(
-		vscode.commands.registerCommand('extension.launchQGLE', launchQGLE)
+		vscode.commands.registerCommand('gle.previewQGLE', launcher.runQGLE)
 	);
 
 	// console.log('The extension is now active');

@@ -79,7 +79,7 @@
     ],
     "commands": [
       {
-        "command": "extension.launchQGLE",
+        "command": "gle.previewQGLE",
         "title": "Preview script in QGLE",
         "when": "resourceLangId == gle && config.gle.activateQGLE",
         "category": "GLE"
@@ -88,11 +88,11 @@
     "menus": {
       "editor/context": [{
           "when": "resourceLangId == gle && config.gle.activateQGLE",
-          "command": "extension.launchQGLE"
+          "command": "gle.previewQGLE"
         }],
       "explorer/context": [{
         "when": "resourceExtname == .gle && config.gle.activateQGLE",
-        "command": "extension.launchQGLE",
+        "command": "gle.previewQGLE",
         "group": "navigation@30"
       }]
     }
