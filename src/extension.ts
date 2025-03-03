@@ -15,7 +15,8 @@ export function activate(context: vscode.ExtensionContext) {
 	);
 
 	context.subscriptions.push(
-		vscode.commands.registerCommand('gle.previewQGLE', launcher.runQGLE)
+		vscode.commands.registerCommand('gle.previewQGLE', launcher.runQGLE),
+		vscode.commands.registerCommand('gle.drawGLE', launcher.runGLE)
 	);
 
 	// console.log('The extension is now active');

@@ -2,7 +2,7 @@
   "name": "gle",
   "displayName": "GLE",
   "description": "GLE (Graphics Layout Engine) Language Support",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "engines": {
     "vscode": "^1.97.0"
   },
@@ -73,6 +73,16 @@
             "type": ["string", "null"],
             "default": null,
             "description": "Specifies the path to QGLE previewer."
+          },
+          "gle.pathToGLE": {
+            "type": ["string", "null"],
+            "default": null,
+            "description": "Specifies the path to GLE application."
+          },
+          "gle.argsGLE":{
+            "type":"array",
+            "default":[],
+            "description": "Specifies the command-line options for running GLE"
           }
         }
       }
@@ -83,13 +93,25 @@
         "title": "Preview script in QGLE",
         "when": "resourceLangId == gle && config.gle.activateQGLE",
         "category": "GLE"
+      },
+      {
+        "command": "gle.drawGLE",
+        "title": "Draw script with GLE",
+        "when": "resourceLangId == gle",
+        "category": "GLE"
       }
     ],
     "menus": {
-      "editor/context": [{
+      "editor/context": [
+        {
           "when": "resourceLangId == gle && config.gle.activateQGLE",
           "command": "gle.previewQGLE"
-        }],
+        },
+        {
+          "when": "resourceLangId == gle",
+          "command": "gle.drawGLE"
+        }
+      ],
       "explorer/context": [{
         "when": "resourceExtname == .gle && config.gle.activateQGLE",
         "command": "gle.previewQGLE",
