@@ -11,11 +11,12 @@ export class GLElauncher {
         this.runGLE = this.runGLE.bind(this);
     }
 
-    public runQGLE(uri: vscode.Uri) {
+    public runQGLE(uri: vscode.Uri | undefined) {
         /**
          * Start QGLE previewer
          */
-        const filename = uri.fsPath;
+        // if this function is called from the status bar, uri is undefined. In that case, use filename from active document
+        const filename = uri ? uri.fsPath : (vscode.window.activeTextEditor?.document.fileName ?? "");
         if (filename.endsWith(".gle")) {
             const cmd = QGLEcmd();
             // asynchronous process
@@ -129,6 +130,10 @@ export class GLElauncher {
             return found[1] + found[2];
         }
         return "";
+    }
+
+    public getLogger() {
+        return this.gle_logger;
     }
 }
 
