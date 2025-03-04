@@ -74,6 +74,14 @@
 					"match": "\\b(d\\d+)\\b"
 				},
 				{
+					"name": "entity.name.axis.gle",
+					"match": "(?<=fill\\s+)\\b(x1)\\b"
+				},
+				{
+					"name": "entity.name.axis.gle",
+					"match": "(?<=fill\\s+d\\d+,\\s*)\\b(x2)\\b"
+				},
+				{
 					"name": "keyword.command.graph.gle",
 					"match": "^\\s*\\b(bar|center|colormap|data|discontinuity|fill|fullsize|key|let|math|nobox|(h|v)?scale|size|title|(x|y)2?(axis|labels|names|(no|sub)?ticks|places|side|title))\\b"
 				},
@@ -145,19 +153,8 @@
 			}]
 		},
 		{
-			"name": "meta.body.block.other.gle",
-			"begin": "(?<=^begin)\\s+(box|clip|length|name|object|origin|path|rotate|scale|translate)\\b",
-			"captures": {
-				"0": {
-					"name": "storage.type.gle"
-				}
-			},
-			"end": "(?<=^end)(\\s+\\1)\\b",
-			"patterns": [
-				{
-					"include": "$self"
-				}
-			]
+			"name": "storage.type.gle",
+			"match": "(?<=^\\s*(?:begin|end))\\s+(box|clip|layer|length|name|object|origin|path|rotate|scale|translate)\\b"
 		},
 		{
 			"match": "([a-zA-Z_]+[a-zA-Z0-9_]*)(?=\\s*=\\s*[0-9a-z\\-+])",
@@ -194,6 +191,10 @@
 				{
 					"name": "keyword.operator.subroutine.gle",
 					"match": "@(?=.+)"
+				},
+				{
+					"name": "entity.name.function.gle",
+					"match": "(?<=@)(\\w+)\\b"
 				},
 				{
 					"name": "keyword.operator.arithmetic.gle",

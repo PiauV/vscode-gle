@@ -18,8 +18,8 @@ export class GLEColorProvider implements vscode.DocumentColorProvider {
         let output: vscode.ColorInformation[] = []; // initialize list of colors
         let diagnostics: vscode.Diagnostic[] = []; // initialize list of errors
 
-        const pattern_rgb = "(?<=\\b(?:color|fill)\\b\\s+)(rgba?(?:255)?)\\((\\s*\\d+(?:\\.\\d*)?\\s*(?:,\\s*\\d+(?:\\.\\d*)?\\s*){2,3})\\)";
-        const pattern_name = "(?<=\\b(?:color|fill)\\b\\s+)\\b(\\w+)\\b";
+        const pattern_rgb = "(?<=\\b(?:color|fill|background)\\b\\s+)(rgba?(?:255)?)\\((\\s*\\d+(?:\\.\\d*)?\\s*(?:,\\s*\\d+(?:\\.\\d*)?\\s*){2,3})\\)";
+        const pattern_name = "(?<=\\b(?:color|fill|background)\\b\\s+)\\b(\\w+)\\b";
         for (let lineIndex = 0; lineIndex < document.lineCount; lineIndex++) {
             const line = document.lineAt(lineIndex);
             let found_rgb_code = line.text.match(pattern_rgb);
@@ -68,7 +68,7 @@ export class GLEColorProvider implements vscode.DocumentColorProvider {
                         output.push(new vscode.ColorInformation(range, color));
                     }
                     else {
-                        diagnostics.push(new vscode.Diagnostic(range, "Unknown color name", vscode.DiagnosticSeverity.Error));
+                        diagnostics.push(new vscode.Diagnostic(range, "Unknown color name", vscode.DiagnosticSeverity.Warning));
                     }
                 }
             }
