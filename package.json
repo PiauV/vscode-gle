@@ -2,7 +2,7 @@
   "name": "gle",
   "displayName": "GLE",
   "description": "GLE (Graphics Layout Engine) Language Support",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "engines": {
     "vscode": "^1.97.0"
   },
@@ -117,7 +117,21 @@
         "command": "gle.previewQGLE",
         "group": "navigation@30"
       }]
-    }
+    },
+    "themes": [
+      {
+        "label": "Visual Studio Light (GLE)",
+        "id": "gle-light",
+        "uiTheme": "vs",
+        "path": "./themes/gle_light_vs.json"
+      },
+      {
+        "label": "Visual Studio Dark (GLE)",
+        "id": "gle-dark",
+        "uiTheme": "vs-dark",
+        "path": "./themes/gle_dark_vs.json"
+      }
+    ]
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
