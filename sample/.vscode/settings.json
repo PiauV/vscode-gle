@@ -1,0 +1,7 @@
+{
+    "gle.argsGLE": [
+        "-device pdf",
+        "-output sample"
+    ],
+    "editor.colorDecoratorsActivatedOn": "click"
+}

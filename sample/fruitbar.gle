@@ -1,0 +1,16 @@
+size 8 6
+
+set texlabels 1
+
+begin graph
+   scale auto
+   title  "Fruit Production"
+   xtitle "Weekday"
+   ytitle "Production [x100 pound]"
+   xticks off
+   data   "fruits.dat"
+   d1 marker fcircle msize 0.2 lstyle 2 color green key "Apples"
+   d2 marker fsquare msize 0.2 lstyle 2 color orange key "Oranges"
+
+   key compact pos tr offset 0.2 0.2
+end graph
