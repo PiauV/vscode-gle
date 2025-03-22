@@ -1,0 +1,7 @@
+.vscode/**
+.gitignore
+.gitattributes
+media/**
+sample/**
+src/**
+tsconfig.json

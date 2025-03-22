@@ -2,8 +2,17 @@
   "name": "gle",
   "displayName": "GLE",
   "description": "GLE (Graphics Layout Engine) Language Support",
+  "icon": "icons/logo.png",
+  "publisher": "vpiau",
+  "author": "V. Piau",
+  "repository": {
+    "type": "git",
+    "directory": "https://github.com/PiauV/vscode-gle"
+  },
+  "bugs": "https://github.com/PiauV/vscode-gle/issues",
   "license": "MIT",
   "version": "0.3.0",
+  "preview": true,
   "engines": {
     "vscode": "^1.97.0"
   },
@@ -56,12 +65,15 @@
         "path": "./snippets.json"
       }
     ],
-    "configuration":[
+    "configuration": [
       {
         "title": "GLE",
         "properties": {
           "gle.includePath": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "default": null,
             "description": "Specifies the absolute include path for GLE scripts (gleinc)."
           },
@@ -71,18 +83,24 @@
             "description": "Enables call to QGLE previewer."
           },
           "gle.pathToQGLE": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "default": null,
             "description": "Specifies the path to QGLE previewer."
           },
           "gle.pathToGLE": {
-            "type": ["string", "null"],
+            "type": [
+              "string",
+              "null"
+            ],
             "default": null,
             "description": "Specifies the path to GLE application."
           },
-          "gle.argsGLE":{
-            "type":"array",
-            "default":[],
+          "gle.argsGLE": {
+            "type": "array",
+            "default": [],
             "description": "Specifies the command-line options for running GLE."
           }
         }
@@ -113,11 +131,13 @@
           "command": "gle.drawGLE"
         }
       ],
-      "explorer/context": [{
-        "when": "resourceExtname == .gle && config.gle.activateQGLE",
-        "command": "gle.previewQGLE",
-        "group": "navigation@30"
-      }]
+      "explorer/context": [
+        {
+          "when": "resourceExtname == .gle && config.gle.activateQGLE",
+          "command": "gle.previewQGLE",
+          "group": "navigation@30"
+        }
+      ]
     },
     "themes": [
       {
@@ -140,8 +160,8 @@
     "watch": "tsc -watch -p ./"
   },
   "devDependencies": {
-    "@types/vscode": "^1.97.0",
     "@types/node": "20.x",
+    "@types/vscode": "^1.97.0",
     "typescript": "^5.7.3"
   }
 }

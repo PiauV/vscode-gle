@@ -1,30 +1,26 @@
 # vscode-gle: A VS Code extension for the GLE language
 
-[GLE (Graphics Layout Engine)](https://glx.sourceforge.io/) is an application used to generate high-quality plots, figures and diagrams.
-
-This extension provides language support for the GLE scripting language to [Visual Studio Code](https://code.visualstudio.com/).
+A [Visual Studio Code](https://code.visualstudio.com/) extension that provides language support for the [GLE (Graphics Layout Engine)](https://glx.sourceforge.io/) scripting language used to generate high-quality plots, figures and diagrams.
 
 ## Features
 
 ### Declarative language features for GLE
 
- - **Syntax highlighting** 
-    + based on TextMate grammar file for GLE\
-      <img src="media/key.png" alt="key" width="45%"/>
+ - **Syntax highlighting**<br /> <img src="https://github.com/PiauV/vscode-gle/raw/main/media/key.png" alt="> key block example" width="51%"/>
+    + based on TextMate grammar file for GLE
     + 2 built-in themes (light and dark) based on standard vscode themes
  - **Folding** and **auto-indentation**
  - **Snippets**
     + `for` loop, `if` statement
     + `set` commands
     + subroutines
-    + `begin` ... `end` blocks\
-      <img src="media/snippet.png" alt="snippet" width="45%"/>
+    + `begin` ... `end` blocks <br /> <img src="https://github.com/PiauV/vscode-gle/raw/main/media/snippet.png" alt="> snippet example" width="55%"/>
 
 ### Programmatic language features for GLE
 
 #### Document link 
 
-<img src="media/link.gif" alt="Link provider" width="35%"/>
+<img src="https://github.com/PiauV/vscode-gle/raw/main/media/link.gif" alt="> Link provider" width="42%"/>
 
 Open external files called in the GLE script
  - include files (`include <filename>`)
@@ -32,7 +28,7 @@ Open external files called in the GLE script
 
 #### Color decorator
 
-<img src="media/colors.gif" alt="Color decorator" width="25%"/>
+<img src="https://github.com/PiauV/vscode-gle/raw/main/media/colors.gif" alt="> Color decorator" width="30%"/>
 
  - add a color decorator in front of color functions
    + `color rgb(r,g,b)`
@@ -42,8 +38,7 @@ Open external files called in the GLE script
 
 ### (Q)GLE from the vscode editor
 
-
-<img src="media/runner.png" alt="Status bar" width="25%"/>
+<img src="https://github.com/PiauV/vscode-gle/raw/main/media/runner.png" alt="> Status bar buttons" width="40%"/>
 
 The GLE script can be built from directly from vscode, using `Run GLE` button, or using right-click in the editor.\
 The following command will be executed: `gle [options] <this_script.gle>`.\
@@ -77,7 +72,7 @@ Please report issues and feature requests on the [GitHub page](https://github.co
 
 ## Release Notes
 
-See the CHANGELOG for a complete list of changes.
+See the [CHANGELOG](https://github.com/PiauV/vscode-gle/blob/main/CHANGELOG.md) for a complete list of changes.
 
 ### 0.3.0 [preview]
 

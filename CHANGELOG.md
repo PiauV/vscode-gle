@@ -5,4 +5,4 @@ All notable changes to the `vscode-gle` extension will be documented in this fil
 ## [0.3.0] - 2025-03-20
 
 - Initial release
-- See the README file for more information about the extension
+- See the [README](https://github.com/PiauV/vscode-gle/blob/main/README.md) for more information about the extension
