@@ -2,7 +2,8 @@
   "name": "gle",
   "displayName": "GLE",
   "description": "GLE (Graphics Layout Engine) Language Support",
-  "version": "0.2.4",
+  "license": "MIT",
+  "version": "0.3.0",
   "engines": {
     "vscode": "^1.97.0"
   },
@@ -82,7 +83,7 @@
           "gle.argsGLE":{
             "type":"array",
             "default":[],
-            "description": "Specifies the command-line options for running GLE"
+            "description": "Specifies the command-line options for running GLE."
           }
         }
       }
