@@ -36,7 +36,7 @@ export class GLElauncher {
         /**
          * Build GLE script
          */
-        let doc = vscode.window.activeTextEditor?.document;
+        const doc = vscode.window.activeTextEditor?.document;
         if (!doc) return;
         const filename = doc.fileName;
         // console.log(filename);
@@ -57,7 +57,7 @@ export class GLElauncher {
         const filename = vscode.workspace.asRelativePath(file);
         this.gle_logger.message(`-- [${new Date().toLocaleTimeString(undefined, { hour12: false })}] Drawing GLE script ${filename} --\n`);
         const cmd = GLEcmd();
-        let args = GLEoptions();
+        const args = GLEoptions();
         args.push(file);
         // synchronous process ==> pause the execution of the code until the spawned process exits (end of build or error)
         const gle_build = cp.spawnSync(cmd, args, { cwd: path.dirname(file), shell: true });

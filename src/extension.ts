@@ -18,7 +18,7 @@ export function activate(context: vscode.ExtensionContext) {
 	);
 
 	// Commands
-	let launcher = new GLElauncher();
+	const launcher = new GLElauncher();
 	const commandGLE = 'gle.drawGLE';
 	const commandQGLE = 'gle.previewQGLE';
 	context.subscriptions.push(

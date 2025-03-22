@@ -13,6 +13,6 @@ export function GLEcmd(): string {
 }
 
 export function GLEoptions(): string[] {
-    let options = vscode.workspace.getConfiguration('gle').get<string[]>("argsGLE");
+    const options = vscode.workspace.getConfiguration('gle').get<string[]>("argsGLE");
     return options ? options : [];
 }

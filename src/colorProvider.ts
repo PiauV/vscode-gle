@@ -11,18 +11,18 @@ export class GLEColorProvider implements vscode.DocumentColorProvider {
 
     colorDiagnostics = vscode.languages.createDiagnosticCollection("color");
 
-    public provideDocumentColors(document: vscode.TextDocument, token: vscode.CancellationToken): vscode.ColorInformation[] {
+    public provideDocumentColors(document: vscode.TextDocument): vscode.ColorInformation[] {
         /** Generate color decorator + color picker */
         // console.log("provideDocumentColors");
 
-        let output: vscode.ColorInformation[] = []; // initialize list of colors
-        let diagnostics: vscode.Diagnostic[] = []; // initialize list of errors
+        const output: vscode.ColorInformation[] = []; // initialize list of colors
+        const diagnostics: vscode.Diagnostic[] = []; // initialize list of errors
 
         const pattern_rgb = "(?<=\\b(?:color|fill|background)\\b\\s+)(rgba?(?:255)?)\\((\\s*\\d+(?:\\.\\d*)?\\s*(?:,\\s*\\d+(?:\\.\\d*)?\\s*){2,3})\\)";
         const pattern_name = "(?<=\\b(?:color|fill|background)\\b\\s+)\\b(\\w+)\\b";
         for (let lineIndex = 0; lineIndex < document.lineCount; lineIndex++) {
             const line = document.lineAt(lineIndex);
-            let found_rgb_code = line.text.match(pattern_rgb);
+            const found_rgb_code = line.text.match(pattern_rgb);
             if (found_rgb_code != null) {
                 const expr = found_rgb_code[0];
                 // console.log(expr);
@@ -77,7 +77,7 @@ export class GLEColorProvider implements vscode.DocumentColorProvider {
         return output;
     }
 
-    public provideColorPresentations(color: vscode.Color, context: { document: vscode.TextDocument, range: vscode.Range }, token: vscode.CancellationToken): vscode.ColorPresentation[] {
+    public provideColorPresentations(color: vscode.Color, context: { document: vscode.TextDocument, range: vscode.Range }): vscode.ColorPresentation[] {
         /** Updates color after changing it with the color picker */
         const colString = context.document.getText(context.range);
 

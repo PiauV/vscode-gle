@@ -10,13 +10,13 @@ export class LinkToFilesProvider implements vscode.DocumentLinkProvider {
 
 	fileDiagnostics = vscode.languages.createDiagnosticCollection("files"); // file(s) not found
 
-	public async provideDocumentLinks(document: vscode.TextDocument, token: vscode.CancellationToken): Promise<vscode.DocumentLink[]> {
+	public async provideDocumentLinks(document: vscode.TextDocument): Promise<vscode.DocumentLink[]> {
 		// console.log("provideDocumentLinks");
 
-		let output: vscode.DocumentLink[] = []; // initialize list of file links
-		let diagnostics: vscode.Diagnostic[] = []; // initialize list of errors
+		const output: vscode.DocumentLink[] = []; // initialize list of file links
+		const diagnostics: vscode.Diagnostic[] = []; // initialize list of errors
 
-		const pattern = "^\\s*(include|data|colormap)\\s+\"(\\w+\.[a-zA-Z0-9]+)(?=\")";
+		const pattern = "^\\s*(include|data|colormap)\\s+\"(\\w+\\.[a-zA-Z0-9]+)(?=\")";
 		const doc_uri = document.uri; // path of the GLE script
 		for (let lineIndex = 0; lineIndex < document.lineCount; lineIndex++) { // parse the whole document
 			const line = document.lineAt(lineIndex);
