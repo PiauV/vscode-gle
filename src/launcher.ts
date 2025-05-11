@@ -1,13 +1,14 @@
 import * as vscode from 'vscode';
 import * as cp from 'child_process';
 import * as path from 'path';
-import { GLEcmd, GLEoptions, QGLEcmd } from "./utils";
+import { GLEcmd, GLEoptions, QGLEcmd } from './utils';
+import { Logger } from './logger';
 
 export class GLElauncher {
     private gle_logger: Logger; // GLE output channel
 
-    public constructor() {
-        this.gle_logger = new Logger;
+    public constructor(logger: Logger) {
+        this.gle_logger = logger;
         this.runGLE = this.runGLE.bind(this);
     }
 
@@ -130,37 +131,5 @@ export class GLElauncher {
             return found[1] + found[2];
         }
         return "";
-    }
-
-    public getLogger() {
-        return this.gle_logger;
-    }
-}
-
-class Logger {
-    /**
-     * Dedicated vscode Output channel to print GLE output
-     */
-    private logPanel: vscode.OutputChannel
-
-    constructor() {
-        this.logPanel = vscode.window.createOutputChannel('GLE')
-    }
-
-    message(message: string) {
-        this.logPanel.append(`${message}`)
-    }
-
-    show() {
-        this.logPanel.show(true)
-    }
-
-    RestartLog() {
-        this.logPanel.clear();
-        this.logPanel.show(true)
-    }
-
-    dispose() {
-        this.logPanel.dispose();
     }
 }

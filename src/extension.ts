@@ -1,15 +1,35 @@
 import * as vscode from 'vscode';
 import { LinkToFilesProvider } from './linkProvider';
 import { GLEColorProvider } from './colorProvider';
-import { GLElauncher } from './launcher'
+import { Logger } from './logger';
+import { GLElauncher } from './launcher';
+import { GLEcmd } from "./utils";
+import * as cp from 'child_process';
 
 let statusBarItemGLE: vscode.StatusBarItem;
 let statusBarItemQGLE: vscode.StatusBarItem;
 
 export function activate(context: vscode.ExtensionContext) {
+
+	const logger = new Logger;
+	context.subscriptions.push(logger);
+
+	console.log(`GLE extension is now active\nCurrent path to GLE: ${GLEcmd()}`);
+	const gle = cp.spawnSync(GLEcmd());
+	if (gle.error) {
+		console.error("Did not find GLE");
+		logger.message("WARNING - Did not find GLE (see 'gle.pathToGLE' setting)");
+	}
+	else {
+		const output_gle = gle.stderr.toString();
+		const l1 = output_gle.indexOf('\n');
+		logger.message("Found GLE - " + output_gle.substring(0, l1));
+	}
+	logger.show();
+
 	// Link provider
 	context.subscriptions.push(
-		vscode.languages.registerDocumentLinkProvider('gle', new LinkToFilesProvider())
+		vscode.languages.registerDocumentLinkProvider({ scheme: 'file', language: 'gle' }, new LinkToFilesProvider())
 	);
 
 	// Color decorator
@@ -18,15 +38,12 @@ export function activate(context: vscode.ExtensionContext) {
 	);
 
 	// Commands
-	const launcher = new GLElauncher();
+	const launcher = new GLElauncher(logger);
 	const commandGLE = 'gle.drawGLE';
 	const commandQGLE = 'gle.previewQGLE';
 	context.subscriptions.push(
 		vscode.commands.registerCommand(commandGLE, launcher.runGLE),
 		vscode.commands.registerCommand(commandQGLE, launcher.runQGLE)
-	);
-	context.subscriptions.push(
-		launcher.getLogger()
 	);
 
 	// Status bar
