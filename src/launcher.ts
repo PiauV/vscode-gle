@@ -59,7 +59,7 @@ export class GLElauncher {
         this.gle_logger.message(`-- [${new Date().toLocaleTimeString(undefined, { hour12: false })}] Drawing GLE script ${filename} --\n`);
         const cmd = GLEcmd();
         const args = GLEoptions();
-        args.push(file);
+        args.push(`"${file}"`);
         // synchronous process ==> pause the execution of the code until the spawned process exits (end of build or error)
         const gle_build = cp.spawnSync(cmd, args, { cwd: path.dirname(file), shell: true });
         if (gle_build.error) {
