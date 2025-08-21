@@ -2,24 +2,26 @@
   "name": "gle",
   "displayName": "GLE",
   "description": "GLE (Graphics Layout Engine) Language Support",
-  "icon": "icons/logo.png",
-  "publisher": "vpiau",
+  "version": "0.3.2",
   "author": "V. Piau",
-  "repository": {
-    "type": "git",
-    "directory": "https://github.com/PiauV/vscode-gle"
-  },
-  "bugs": "https://github.com/PiauV/vscode-gle/issues",
-  "license": "MIT",
-  "version": "0.3.1",
-  "preview": true,
-  "engines": {
-    "vscode": "^1.97.0"
-  },
+  "publisher": "vpiau",
   "categories": [
     "Programming Languages",
     "Snippets"
   ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/PiauV/vscode-gle.git"
+  },
+  "bugs": {
+    "url": "https://github.com/PiauV/vscode-gle/issues"
+  },
+  "icon": "icons/logo.png",
+  "preview": true,
+  "engines": {
+    "vscode": "^1.97.0"
+  },
   "activationEvents": [],
   "main": "./out/extension.js",
   "contributes": {

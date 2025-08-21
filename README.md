@@ -1,5 +1,10 @@
 # vscode-gle: A VS Code extension for the GLE language
 
+<p align="left">
+   <a href="https://github.com/PiauV/vscode-gle"><img src="https://badgen.net/github/tag/PiauV/vscode-gle?icon=github" /></a>
+   <a href="https://marketplace.visualstudio.com/items?itemName=vpiau.gle"><img src="https://badgen.net/vs-marketplace/v/vpiau.gle?icon=visualstudio" /></a>
+</p>
+
 A [Visual Studio Code](https://code.visualstudio.com/) extension that provides language support for the [GLE (Graphics Layout Engine)](https://glx.sourceforge.io/) scripting language used to generate high-quality plots, figures and diagrams.
 
 ## Features
@@ -78,3 +83,6 @@ See the [CHANGELOG](https://github.com/PiauV/vscode-gle/blob/main/CHANGELOG.md) 
 
 Initial release of vscode-gle extension
 
+### 0.3.X [preview]
+
+Various fixes
