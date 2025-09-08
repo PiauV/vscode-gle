@@ -12,10 +12,8 @@ export class GLElauncher {
         this.runGLE = this.runGLE.bind(this);
     }
 
+    /** Start QGLE previewer */
     public runQGLE(uri: vscode.Uri | undefined) {
-        /**
-         * Start QGLE previewer
-         */
         // if this function is called from the status bar, uri is undefined. In that case, use filename from active document
         const filename = uri ? uri.fsPath : (vscode.window.activeTextEditor?.document.fileName ?? "");
         if (filename.endsWith(".gle")) {
@@ -33,10 +31,8 @@ export class GLElauncher {
         }
     }
 
+    /** Build GLE script */
     public runGLE() {
-        /**
-         * Build GLE script
-         */
         const doc = vscode.window.activeTextEditor?.document;
         if (!doc) return;
         const filename = doc.fileName;
@@ -50,10 +46,8 @@ export class GLElauncher {
         }
     }
 
+    /** Run GLE and print output in vscode */
     private drawGLE(file: string) {
-        /**
-         * Run GLE and print output in vscode
-         */
         this.gle_logger.RestartLog();
         const filename = vscode.workspace.asRelativePath(file);
         this.gle_logger.message(`-- [${new Date().toLocaleTimeString(undefined, { hour12: false })}] Drawing GLE script ${filename} --\n`);
@@ -94,10 +88,8 @@ export class GLElauncher {
         }
     }
 
+    /** Parse error message from GLE */
     private parseError(msg: string): number[] | undefined {
-        /**
-         * Parse error message from GLE
-         */
         const lines = msg.split('\n');
         const pattern = "^>>\\s+(\\w+.gle)\\s+\\((\\d+)\\)\\s+(\\|\\w).+\\|\\s+$"
         for (let i = 1; i < lines.length; i++) {
@@ -121,10 +113,8 @@ export class GLElauncher {
         }
     }
 
+    /** Parse GLE output string to extract the name of the output file */
     private parseOutput(msg: string): string {
-        /**
-         * Parse GLE output string to extract the name of the output file
-         */
         const pattern = "\\[(\\w+)\\](?:\\[(\\.[a-z]+)\\])+";
         const found = msg.match(pattern);
         if (found) {

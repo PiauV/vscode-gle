@@ -71,10 +71,8 @@ export function activate(context: vscode.ExtensionContext) {
 	// console.log('The extension is now active');
 }
 
+/** Show/hide GLE and QGLE items in the status bar */
 function updateStatusBarItems(): void {
-	/**
-	 * Show/hide GLE and QGLE items in the status bar
-	 */
 	const documentFileType = vscode.window.activeTextEditor?.document.languageId;
 	if (documentFileType == "gle") {
 		// this is a GLE script

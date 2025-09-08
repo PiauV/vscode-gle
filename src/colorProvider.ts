@@ -1,13 +1,11 @@
 import * as vscode from 'vscode';
 import { colors } from './colors';
 
+/** Provide color decorator in the GLE script */
+// Triggered after 'color' and 'fill' keywords.
+// Supports named colors (blue, red, ...) and rgb/rgba/rgb255/rgba255 functions.
+// Can provide error (diagnostics) in some cases (e.g., unknown color name).
 export class GLEColorProvider implements vscode.DocumentColorProvider {
-    /**
-     * Provide color decorator in the GLE script.
-     * Triggered after 'color' and 'fill' keywords.
-     * Supports named colors (blue, red, ...) and rgb/rgba/rgb255/rgba255 functions.
-     * Can provide error (diagnostics) in some cases (e.g., unknown color name).
-     */
 
     colorDiagnostics = vscode.languages.createDiagnosticCollection("color");
 

@@ -1,12 +1,10 @@
 import * as vscode from 'vscode';
 
+/** Provide links to files referenced in the GLE script */
+// These files can be include files containing subroutines, or data files.
+// The path to these files is supposed to be relative to the GLE script's folder.
+// If a file cannot be found, an error is issued ('diagnostic').
 export class LinkToFilesProvider implements vscode.DocumentLinkProvider {
-	/**
-	 * Provide links to files referenced in the GLE script.
-	 * These files can be include files containing subroutines, or data files.
-	 * The path to these files is supposed to be relative to the GLE script's folder.
-	 * If a file cannot be found, an error is issued ('diagnostic').
-	 */
 
 	fileDiagnostics = vscode.languages.createDiagnosticCollection("files"); // file(s) not found
 

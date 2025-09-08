@@ -1,9 +1,7 @@
 import * as vscode from 'vscode';
 
+/** Dedicated vscode Output channel to print GLE output */
 export class Logger {
-    /**
-     * Dedicated vscode Output channel to print GLE output
-     */
     private logPanel: vscode.OutputChannel
 
     constructor() {
