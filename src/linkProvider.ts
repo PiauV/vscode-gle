@@ -1,10 +1,16 @@
 import * as vscode from 'vscode';
+import { GLEinclude } from './utils';
 
 /** Provide links to files referenced in the GLE script */
 // These files can be include files containing subroutines, or data files.
 // The path to these files is supposed to be relative to the GLE script's folder.
 // If a file cannot be found, an error is issued ('diagnostic').
 export class LinkToFilesProvider implements vscode.DocumentLinkProvider {
+	private usr_include_paths: vscode.Uri[]; // include paths from GLE_USRLIB
+
+	public constructor() {
+		this.usr_include_paths = GLEinclude();
+	}
 
 	fileDiagnostics = vscode.languages.createDiagnosticCollection("files"); // file(s) not found
 
@@ -29,35 +35,54 @@ export class LinkToFilesProvider implements vscode.DocumentLinkProvider {
 				);
 				const file = vscode.Uri.joinPath(doc_uri, '../' + filename); // path relative to the folder containing the document
 				// console.log(file.path);
-				try {
-					await vscode.workspace.fs.stat(file);
-					output.push(new vscode.DocumentLink(range, file)); // found file
-				} catch {
-					// file not found
-					try {
-						if (found[1] == "include") {
-							const include_path = vscode.workspace.getConfiguration('gle').get<string>("includePath");
-							// console.log(include_path);
-							if (include_path) {
-								const file2 = vscode.Uri.joinPath(vscode.Uri.file(include_path), filename); // path
-								await vscode.workspace.fs.stat(file2);
-								output.push(new vscode.DocumentLink(range, file2)); // found file
-							}
-							else {
-								diagnostics.push(new vscode.Diagnostic(range, `File ${filename} not found - try to set the include path (gleinc) in settings.json`, vscode.DiagnosticSeverity.Warning));
-							}
-						}
-						else {
-							throw "not found";
-						}
-					}
-					catch {
-						diagnostics.push(new vscode.Diagnostic(range, `File ${filename} not found`, vscode.DiagnosticSeverity.Error));
-					}
+				let found_file = false;
+				if (await fileExists(file)){
+					output.push(new vscode.DocumentLink(range, file));
+					found_file = true;
 				}
+				else if (found[1] == "include"){
+					// include file : there might be additional directory to explore
+					const include_path = vscode.workspace.getConfiguration('gle').get<string>("includePath");
+					if (include_path){
+						// first, look for this file in gleinc folder (standard subroutine directory)
+						const file2 = vscode.Uri.joinPath(vscode.Uri.file(include_path), filename); // path
+						// console.log(file2);
+						if (await fileExists(file2)){
+							output.push(new vscode.DocumentLink(range, file2));
+							found_file = true;
+						}
+					}
+					if (!found_file){
+						// look for this file in additional folders (user-defined directories from GLE_USRLIB)
+						for (const path of this.usr_include_paths){
+							const file2 = vscode.Uri.joinPath(path, filename);
+							// console.log(file2);
+							if (await fileExists(file2)){
+								output.push(new vscode.DocumentLink(range, file2));
+								found_file = true;
+								break;
+							}
+						}
+					}
+					// failed to find the file in other directories
+					if (!found_file)
+						diagnostics.push(new vscode.Diagnostic(range, `Include file ${filename} not found - try to set the include path (gleinc) in settings.json`, vscode.DiagnosticSeverity.Error));
+				}
+				else
+					diagnostics.push(new vscode.Diagnostic(range, `Data file ${filename} not found`, vscode.DiagnosticSeverity.Error));
 			}
 		}
 		this.fileDiagnostics.set(doc_uri, diagnostics);
 		return output;
 	}
+}
+
+/** Check if the given file exists */
+async function fileExists(filepath : vscode.Uri) {
+  try {
+    await vscode.workspace.fs.stat(filepath);
+    return true;
+  } catch {
+    return false;
+  }
 }
