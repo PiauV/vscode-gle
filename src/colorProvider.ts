@@ -3,7 +3,7 @@ import { colors } from './colors';
 
 /** Provide color decorator in the GLE script */
 // Triggered after 'color' and 'fill' keywords.
-// Supports named colors (blue, red, ...) and rgb/rgba/rgb255/rgba255 functions.
+// Supports named colors (blue, red, ...), hex-values color (0xffffff) and rgb/rgba/rgb255/rgba255 functions.
 // Can provide error (diagnostics) in some cases (e.g., unknown color name).
 export class GLEColorProvider implements vscode.DocumentColorProvider {
 
@@ -17,6 +17,7 @@ export class GLEColorProvider implements vscode.DocumentColorProvider {
         const diagnostics: vscode.Diagnostic[] = []; // initialize list of errors
 
         const pattern_rgb = "(?<=\\b(?:color|fill|background)\\b\\s+)(rgba?(?:255)?)\\((\\s*\\d+(?:\\.\\d*)?\\s*(?:,\\s*\\d+(?:\\.\\d*)?\\s*){2,3})\\)";
+        const pattern_hex = "(?<=\\b(?:color|fill|background)\\b\\s+)(#[0-9a-fA-F]{6})";
         const pattern_name = "(?<=\\b(?:color|fill|background)\\b\\s+)\\b(\\w+)\\b";
         for (let lineIndex = 0; lineIndex < document.lineCount; lineIndex++) {
             const line = document.lineAt(lineIndex);
@@ -69,6 +70,20 @@ export class GLEColorProvider implements vscode.DocumentColorProvider {
                         diagnostics.push(new vscode.Diagnostic(range, "Unknown color name", vscode.DiagnosticSeverity.Warning));
                     }
                 }
+                else{
+                    const found_hex_color = line.text.match(pattern_hex);
+                    if (found_hex_color != null) {
+                        const expr = found_hex_color[0];
+                        const range = new vscode.Range(
+                            new vscode.Position(lineIndex, line.text.indexOf(expr)),
+                            new vscode.Position(lineIndex, line.text.indexOf(expr) + expr.length)
+                        );
+                        const rgb : number[] = [0.,0.,0.];
+                        for (let i=0; i<3; i++) rgb[i] = parseInt('0x' +expr.slice(1+i*2,3+i*2),16) / 255.;
+                        const color = new vscode.Color(rgb[0], rgb[1], rgb[2], 1.);
+                        output.push(new vscode.ColorInformation(range, color));
+                    }
+                }
             }
         }
         this.colorDiagnostics.set(document.uri, diagnostics);
@@ -79,8 +94,9 @@ export class GLEColorProvider implements vscode.DocumentColorProvider {
         /** Updates color after changing it with the color picker */
         const colString = context.document.getText(context.range);
 
-        if (colString.startsWith("rgb255(") || colString.startsWith("rgba255(")) {
+        if (colString.startsWith("rgb255(") || colString.startsWith("rgba255(") || colString.startsWith('#')) {
             // rgb255/rgba255 functions -> RGB(A) values are integers in the range [0,255]
+            // hex-value -> 6-digits format with hexadecimal RGB values in the range [00,ff]
             const r = Math.round(color.red * 255);
             const g = Math.round(color.green * 255);
             const b = Math.round(color.blue * 255);
@@ -88,6 +104,11 @@ export class GLEColorProvider implements vscode.DocumentColorProvider {
             return [
                 new vscode.ColorPresentation(`rgb255(${r}, ${g}, ${b})`),
                 new vscode.ColorPresentation(`rgba255(${r}, ${g}, ${b}, ${a})`),
+                new vscode.ColorPresentation('#'
+                    +Number(r).toString(16).padStart(2,'0')
+                    +Number(g).toString(16).padStart(2,'0')
+                    +Number(b).toString(16).padStart(2,'0')
+                ),
             ];
         }
         else {
