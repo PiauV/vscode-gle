@@ -16,3 +16,8 @@ All notable changes to the `vscode-gle` extension will be documented in this fil
 
 - Minor update in README and package.json
 - GLE launcher fix : escape file path (mikez)
+
+## [0.3.3] - 2025-09-09
+
+- Color decorator : add support for hex-value color format
+- Link provider update : add link include files located in a path defined by the GLE_USRLIB environment variable

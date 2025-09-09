@@ -29,6 +29,7 @@ A [Visual Studio Code](https://code.visualstudio.com/) extension that provides l
 
 Open external files called in the GLE script
  - include files (`include <filename>`)
+   + can found files in dedicated subroutine directories (parameter `gle.includePath` and paths from GLE_USRLIB)
  - data files (`data <filename> ...` or `colormap <filename> ...`)
 
 #### Color decorator
@@ -36,8 +37,11 @@ Open external files called in the GLE script
 <img src="https://github.com/PiauV/vscode-gle/raw/main/media/colors.gif" alt="> Color decorator" width="30%"/>
 
  - add a color decorator in front of color functions
-   + `color rgb(r,g,b)`
-   + `color rgba(r,g,b,a)`
+   + `color rgb(r,g,b)` (decimal values : 0.-1.)
+   + `color rgba(r,g,b,a)` (decimal values : 0.-1.)
+   + `color rgb255(r,g,b)` (integer values : 0-255)
+   + `color rgba255(r,g,b)` (integer values : 0-255)
+   + `color #rrggbb` (hex-values : 00-ff)
    + `color <colorname>`
  - the color can be changed from vscode color picker
 
@@ -85,4 +89,4 @@ Initial release of vscode-gle extension
 
 ### 0.3.X [preview]
 
-Various fixes
+Various fixes and minor updates
