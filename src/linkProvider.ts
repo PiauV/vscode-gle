@@ -33,8 +33,9 @@ export class LinkToFilesProvider implements vscode.DocumentLinkProvider {
 					new vscode.Position(lineIndex, line.text.indexOf(filename)),
 					new vscode.Position(lineIndex, line.text.indexOf(filename) + filename.length)
 				);
-				const file = vscode.Uri.joinPath(doc_uri, '../' + filename); // path relative to the folder containing the document
-				// console.log(file.path);
+				// filename can be the path relative to the folder containing the document, or an absolute path
+				const file = (filename[0] == '/') ? vscode.Uri.file(filename) : vscode.Uri.joinPath(doc_uri, '../' + filename);
+				console.log(file.fsPath);
 				let found_file = false;
 				if (await fileExists(file)){
 					output.push(new vscode.DocumentLink(range, file));
