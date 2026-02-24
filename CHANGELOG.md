@@ -2,6 +2,10 @@
 
 All notable changes to the `vscode-gle` extension will be documented in this file.
 
+## [0.3.5] - 2026-02-24
+
+- Improvements of color provider (handles comments & string, list of colors, multiple color definitions)
+
 ## [0.3.4] - 2026-01-29
 
 - Minor fix in link provider : absolute path was not handled correctly

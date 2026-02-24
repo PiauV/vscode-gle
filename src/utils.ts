@@ -25,7 +25,7 @@ export function GLEoptions(): string[] {
  */
 export function GLEinclude(): vscode.Uri[] {
     // console.log(process.env.GLE_USRLIB);
-    console.log(os.type());
+    // console.log(os.type());
     const gle_usrlib = process.env.GLE_USRLIB; // string or undefined
     let gle_usr_folders : string[];
     const paths : vscode.Uri[] = [];
