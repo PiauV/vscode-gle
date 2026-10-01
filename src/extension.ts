@@ -14,6 +14,9 @@ export function activate(context: vscode.ExtensionContext) {
 	const logger = new Logger;
 	context.subscriptions.push(logger);
 
+	const colorProvider = new GLEColorProvider();
+	const linkProvider = new LinkToFilesProvider();
+
 	console.log(`GLE extension is now active\nCurrent path to GLE: ${GLEcmd()}`);
 	const gle = cp.spawnSync(GLEcmd());
 	if (gle.error) {
@@ -29,12 +32,12 @@ export function activate(context: vscode.ExtensionContext) {
 
 	// Link provider
 	context.subscriptions.push(
-		vscode.languages.registerDocumentLinkProvider({ scheme: 'file', language: 'gle' }, new LinkToFilesProvider())
+		vscode.languages.registerDocumentLinkProvider({ scheme: 'file', language: 'gle' }, linkProvider)
 	);
 
 	// Color decorator
 	context.subscriptions.push(
-		vscode.languages.registerColorProvider('gle', new GLEColorProvider())
+		vscode.languages.registerColorProvider('gle', colorProvider)
 	);
 
 	// Commands
@@ -65,6 +68,14 @@ export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(
 		vscode.window.onDidChangeActiveTextEditor(updateStatusBarItems)
 	);
+
+	/** Clear GLE diagnostics */
+	context.subscriptions.push(
+		vscode.workspace.onDidCloseTextDocument( doc => {
+			colorProvider.colorDiagnostics.delete(doc.uri);
+			linkProvider.fileDiagnostics.delete(doc.uri);
+		})
+	)
 
 	updateStatusBarItems();
 

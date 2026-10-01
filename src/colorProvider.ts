@@ -18,8 +18,8 @@ export class GLEColorProvider implements vscode.DocumentColorProvider {
 
         const pattern_color = /\b(m?color|fill|background|side)\b/g;
         const pattern_rgb = "(rgba?(?:255)?)\\((\\s*\\d+(?:\\.\\d*)?\\s*(?:,\\s*\\d+(?:\\.\\d*)?\\s*){2,3})\\)";
-        const pattern_hex = "(#[0-9a-fA-F]{6})";
-        const pattern_name = "\\b([a-z]+)(?!\\()\\b";
+        const pattern_hex = "(#[0-9a-fA-F]{6})\\s*";
+        const pattern_name = "\\b([a-z]+[0-9]*)(?!\\()\\b";
 
         for (let lineIndex = 0; lineIndex < document.lineCount; lineIndex++) {
             const line = document.lineAt(lineIndex).text;
@@ -131,8 +131,8 @@ export class GLEColorProvider implements vscode.DocumentColorProvider {
             const b = Math.round(color.blue * 255);
             const a = Math.round(color.alpha * 255);
             return [
-                new vscode.ColorPresentation(`rgb255(${r}, ${g}, ${b})`),
-                new vscode.ColorPresentation(`rgba255(${r}, ${g}, ${b}, ${a})`),
+                new vscode.ColorPresentation(`rgb255(${r},${g},${b})`),
+                new vscode.ColorPresentation(`rgba255(${r},${g},${b},${a})`),
                 new vscode.ColorPresentation('#'
                     +Number(r).toString(16).padStart(2,'0')
                     +Number(g).toString(16).padStart(2,'0')
@@ -148,8 +148,8 @@ export class GLEColorProvider implements vscode.DocumentColorProvider {
             const b = color.blue.toFixed(2);
             const a = color.alpha.toFixed(2);
             return [
-                new vscode.ColorPresentation(`rgb(${r}, ${g}, ${b})`),
-                new vscode.ColorPresentation(`rgba(${r}, ${g}, ${b}, ${a})`)
+                new vscode.ColorPresentation(`rgb(${r},${g},${b})`),
+                new vscode.ColorPresentation(`rgba(${r},${g},${b},${a})`)
             ];
         }
     }
