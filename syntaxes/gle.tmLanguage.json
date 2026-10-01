@@ -16,13 +16,13 @@
 		},
 		{
 			"name": "meta.body.subroutine.gle",
-			"begin": "^(sub)\\s+(?=[A-Za-z_][A-Za-z0-9_]*)",
+			"begin": "(^sub)\\s+(?=[A-Za-z_][A-Za-z0-9_]*)",
 			"captures": {
 				"0": {
 					"name": "storage.type.function.gle"
 				}
 			},
-			"end": "(?<=^end)(\\s+sub)",
+			"end": "(^end)(\\s+sub)",
 			"patterns": [
 				{
 					"begin": "(?<=sub\\s+)([A-Za-z_][A-Za-z0-9_]*)",
@@ -61,13 +61,16 @@
 		},
 		{
 			"name": "meta.body.block.graph.gle",
-			"begin": "(?<=^begin)\\s+(graph)\\b",
+			"begin": "(^begin)\\s+(graph)\\b",
+			"end": "(^end)\\s+(\\2)\\b",
 			"captures": {
-				"0": {
+				"1": {
+					"name": "storage.modifier.gle"
+				},
+				"2": {
 					"name": "storage.type.gle"
 				}
 			},
-			"end": "(?<=^end)(\\s+\\1)\\b",
 			"patterns": [
 				{
 					"name": "entity.name.dataset.gle",
@@ -96,13 +99,16 @@
 		},
 		{
 			"name": "meta.body.block.key.gle",
-			"begin": "(?<=^begin)\\s+(key)\\b",
+			"begin": "(^begin)\\s+(key)\\b",
+			"end": "(^end)\\s+(\\2)\\b",
 			"captures": {
-				"0": {
+				"1": {
+					"name": "storage.modifier.gle"
+				},
+				"2": {
 					"name": "storage.type.gle"
 				}
 			},
-			"end": "(?<=^end)(\\s+\\1)\\b",
 			"patterns": [
 				{
 					"name": "keyword.command.key.gle",
@@ -153,8 +159,17 @@
 			}]
 		},
 		{
-			"name": "storage.type.gle",
-			"match": "(?<=^\\s*(?:begin|end))\\s+(box|clip|layer|length|name|object|origin|path|rotate|scale|translate)\\b"
+			"name": "meta.body.block.other.gle",
+			"begin": "(^begin)\\s+(box|clip|layer|length|name|object|origin|path|rotate|scale|translate)\\b",
+			"end": "(^end)\\s+(\\2)\\b",
+			"captures": {
+				"1": {
+					"name": "storage.modifier.gle"
+				},
+				"2": {
+					"name": "storage.type.gle"
+				}
+			}
 		},
 		{
 			"match": "([a-zA-Z_]+[a-zA-Z0-9_]*)(?=\\s*=\\s*[0-9a-z\\-+])",
@@ -166,15 +181,15 @@
 		},
 		{
 			"name": "constant.numeric.gle",
-			"match": "(-?(\\b\\d+\\b(\\.\\d*)?|\\.\\d+\\b))"
+			"match": "(?<!\\w)(-?(\\d+(\\.\\d*)?|\\.\\d+)([eE][+-]?\\d+)?)(?!\\w)"
 		},
 		{
 			"name": "constant.language.gle",
-			"match": "\\b(true|false)\\b"
+			"match": "\\b(true|false|on|off)\\b"
 		},
 		{
 			"name": "storage.modifier.gle",
-			"match": "^\\s*\\b(set|begin|end|gsave|grestore)\\b"
+			"match": "^\\s*\\b(set|gsave|grestore)\\b"
 		}
 	],
 	"repository": {
