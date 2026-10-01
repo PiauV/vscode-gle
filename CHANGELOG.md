@@ -2,6 +2,12 @@
 
 All notable changes to the `vscode-gle` extension will be documented in this file.
 
+## [0.3.6] - 2026-10-02
+
+- Improvements of syntax highlighting (numbers in scientific notation, 'on/off' keywords, ...)
+- Fixed : closing a file clears the associated diagnostics
+- Fixed : remove spurious spaces inside rgb() functions
+
 ## [0.3.5] - 2026-02-24
 
 - Improvements of color provider (handles comments & string, list of colors, multiple color definitions)
@@ -22,7 +28,7 @@ All notable changes to the `vscode-gle` extension will be documented in this fil
 
 ## [0.3.1] - 2025-05-11
 
-- Link provder fix : add support for relative file paths
+- Link provider fix : add support for relative file paths
 - Print GLE version
 
 ## [0.3.0] - 2025-03-20
